@@ -58,10 +58,10 @@ def draw_box_plot():
     monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 5))
     ax1 = sns.boxplot(data=df_box, x='year', y='value', ax=ax1)
-    ax2 = sns.boxplot(data=df_box, x='month', y='value', ax=ax2, order=monthOrder);
     ax1.set_ylabel('Page Views')
     ax1.set_xlabel('Year')
     ax1.set_title('Year-wise Box Plot (Trend)')
+    ax2 = sns.boxplot(data=df_box, x='month', y='value', ax=ax2, order=monthOrder);
     ax2.set_ylabel('Page Views')
     ax2.set_xlabel('Month')
     ax2.set_title('Month-wise Box Plot (Seasonality)')

@@ -8,7 +8,7 @@ register_matplotlib_converters()
 df = pd.read_csv('fcc-forum-pageviews.csv', index_col='date', parse_dates=['date'])
 
 # Clean data
-df = df[(df.value > df.value.quantile(0.025)) & (df.value < df.value.quantile(0.975))]
+df = df[df['value'].between(df['value'].quantile(0.025), df['value'].quantile(0.975))]
 
 
 def draw_line_plot():
@@ -35,9 +35,7 @@ def draw_bar_plot():
     
     df_bar_group = df_bar.groupby(['year', 'month'])['value'].mean()
     df_bar_group = df_bar_group.unstack(level='month')
-    df_bar_group = df_bar_group[['January', 'February', 'March', 'April', 'May',
-                                'June', 'July', 'August', 'September', 'October', 'November', 'December']]
-    
+    df_bar_group = df_bar_group[['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']]
     fig = df_bar_group.plot.bar(figsize=(7,7)).figure
     plt.xlabel('Years');
     plt.ylabel('Average Page Views');
@@ -57,10 +55,10 @@ def draw_box_plot():
     df_box['month'] = [d.strftime('%b') for d in df_box.date]
 
     # Draw box plots (using Seaborn)
-    mon_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 5))
     ax1 = sns.boxplot(data=df_box, x='year', y='value', ax=ax1)
-    ax2 = sns.boxplot(data=df_box, x='month', y='value', ax=ax2, order=mon_order);
+    ax2 = sns.boxplot(data=df_box, x='month', y='value', ax=ax2, order=monthOrder);
     ax1.set_ylabel('Page Views')
     ax1.set_xlabel('Year')
     ax1.set_title('Year-wise Box Plot (Trend)')

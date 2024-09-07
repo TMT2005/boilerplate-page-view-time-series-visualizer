@@ -56,16 +56,18 @@ def draw_box_plot():
 
     # Draw box plots (using Seaborn)
     monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 5))
-    ax1 = sns.boxplot(data=df_box, x='year', y='value', ax=ax1)
-    ax1.set_ylabel('Page Views')
-    ax1.set_xlabel('Year')
-    ax1.set_title('Year-wise Box Plot (Trend)')
-    ax2 = sns.boxplot(data=df_box, x='month', y='value', ax=ax2, order=monthOrder);
-    ax2.set_ylabel('Page Views')
-    ax2.set_xlabel('Month')
-    ax2.set_title('Month-wise Box Plot (Seasonality)')
-
+    
+    fig, (ax_year, ax_month) = plt.subplots(1, 2, figsize=(20, 5))
+    
+    sns.boxplot(data=df_box, x='year', y='value', ax=ax_year)
+    ax_year.set_ylabel('Page Views')
+    ax_year.set_xlabel('Year')
+    ax_year.set_title('Year-wise Box Plot (Trend)')
+    
+    sns.boxplot(data=df_box, x='month', y='value', ax=ax_month, order=monthOrder)
+    ax_month.set_ylabel('Page Views')
+    ax_month.set_xlabel('Month')
+    ax_month.set_title('Month-wise Box Plot (Seasonality)')
 
 
 
